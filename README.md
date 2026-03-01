@@ -71,9 +71,11 @@ kiamagpie:
 
 The config routes different domains to different listeners which it creates, serving the web content at the web_content path configured.
 
-QUIC is a work in progress, consider it incomplete and not ready for serving files in version 0.1.0. It is safe to disable quic for now by setting the config value to False.
+QUIC support is making good progress. Version 0.1.0 doesn't have complete QUIC support and should be disabled in that version.
 
-Note that only ECDSA NIST curves and x25519 identity certificates are supported in version 0.1.0. Support for RSA idenity is TBD.
+Version 0.1.1 has usable QUIC support!
+
+Note that only ECDSA NIST curves, RSA, and ed25519 are the support server identity types. RSA support was added in 0.1.1, 0.1.0 does not have RSA support.
 
 Hybrid PQC with ML-KEM for key exchange is verified and central to the design.
 
@@ -87,6 +89,8 @@ As of 0.1.1 and onward, the route rewrites are configured in the YAML per domain
 If you need a compact and purpose built web server for handling multiple websites, kiamagpie is built for that.
 
 If you need an efficient and secure server for general serving of web content such as HTML, CSS, images, videos, audio, and javascript, kiamagpie is built for that.
+
+If you need a server that provides support for QUIC, HTTP, and HTTPS protocols, kiamagpie is built for that.
 
 If you need a server that enables hybrid post-quantum-cryptography (PQC) for TLS key exchange [see more regarding the spec FIPS 203](https://csrc.nist.gov/pubs/fips/203/final), then kiamagpie is for that.
 
@@ -130,6 +134,8 @@ Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and
 The three services combined are the kiastack, and together they can handle the domain routing, fail over, and transport security,
 as well as the optimization and ease of serving various websites, html, video, javascript, and beyond.
 
+Kiagateway and kiaproxy do not support UDP so they do not support QUIC. Varations of those services are likely to be made to support QUIC.
+Until then, either use another gateway/lb to support QUIC or expose kiamagpie externally for the QUIC listeners.
 
 ## Project promises
 
