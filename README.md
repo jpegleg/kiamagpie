@@ -12,7 +12,7 @@ kiamagpie:
   host_header_inspection: True
   strict_transport_security: True
   redirect_https: False
-  quic: False
+  quic: True
   tls: True
   http: True
   cache_age_seconds: 60
