@@ -131,13 +131,13 @@ podman run -d -it --network=host -v /opt/local/:/opt/local/ \
                                  carefuldata/kiamagpie
 ```
 
-The mount points for all of the files are configurable in the YAML, except for `domains.yaml` which must be in the working dorectory of kiamagpie, so in the container version `/`.
+The mount points for all of the files are configurable in the YAML, except for `domains.yaml` which must be in the working directory of kiamagpie, so in the container version `/`.
 
 Kiamagpie can listen on any TCP or UDP port. UDP is for QUIC protocol only.
 
 Kiagmagpie can be compiled from source or installed from precompiled release binaries via github.
 
-Kiamagpie works well in Kubernetes, too, just specify the YAML config in the manifest or mount it.
+Kiamagpie works well in Kubernetes, too, just specify the YAML config in the manifest as a configmap or secret, or mount it.
 
 Kiamagpie is a great alternative to Kubernetes at small scale, when there isn't the need to have many services.
 It doesn't replace Kubernetes, but it does the things we need for the web at small and medium scale:
@@ -145,7 +145,9 @@ It doesn't replace Kubernetes, but it does the things we need for the web at sma
 - serve web content
 - use best available network protocols
 - simple and reliable operations
+- solid audit logging and event data (as of v0.1.1 and onward)
 
+  
 Kiamagpie is easier to use and generally more secure and cloud native than traditional web servers like NGINX or Apache HTTPD.
 
 Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and [kiaproxy](https://github.com/jpegleg/kiaproxy/).
