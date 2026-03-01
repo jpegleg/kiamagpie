@@ -214,11 +214,10 @@ var (
 
 func main() {
         const kiamagpieVersion = "0.1.1"
-        logEvent(uuid.New(), map[string]interfce{}{
+        logEvent(uuid.New(), map[string]interface{}{
                 "event":   "server_start",
                 "version": kiamagpieVersion,
         })
-        
         data, err := os.ReadFile("domains.yaml")
         if err != nil {
                 logError(uuid.New(), "config_read_failed", err, map[string]interface{}{"path": "domains.yaml"})
