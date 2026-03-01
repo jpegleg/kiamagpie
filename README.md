@@ -22,34 +22,50 @@ kiamagpie:
     - cert: /opt/local/ANOTHER/cert.pem
     - key: /opt/local/ANOTHER/key.pem
     - web_content: /srv/persist/ANOTHER/
+      rewrites:
+        "/": "/index.html"
   - local.thing.localdomain:
     - "127.0.0.1:3444"
     - cert: /opt/local/ANOTHER/cert.pem
     - key: /opt/local/ANOTHER/key.pem
     - web_content: /srv/persist/ANOTHER/
+      rewrites:
+        "/": "/index.html"
   - example.com:
     - "127.0.0.1:3443"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
   - www.example.com:
     - "127.0.0.1:3243"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
   domains_http:
   - www.example.com:
     - "127.0.0.1:3203"
     - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
   - example.com:
     - "127.0.0.1:3003"
     - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
   - local.thing.localdomain:
     - "127.0.0.1:3004"
     - web_content: /srv/persist/ANOTHER/
+      rewrites:
+        "/": "/index.html"
   - another.local.thing.localdomain:
     - "127.0.0.1:3204"
     - web_content: /srv/persist/ANOTHER/
+      rewrites:
+        "/": "/index.html"
 
 ```
 
@@ -61,8 +77,10 @@ Note that only ECDSA NIST curves and x25519 identity certificates are supported 
 
 Hybrid PQC with ML-KEM for key exchange is verified and central to the design.
 
-By default `/` routes to the file `index.html` in the web root of `web_content`. To code other routes, edit the `main.go` and recompile it.
-There are some example routes in the default build for `/art`, `/shows`, `/music`, which each route to art.html and so on. And also `/about`. which routes to index.html as well. 
+In the 0.1.0 version the routes rewrites were not configurable in the YAML and `/` routes to the file `index.html` in the web root of `web_content`. To code other routes, edit the `main.go` and recompile it.
+There are some example routes in the default build for `/art`, `/shows`, `/music`, which each route to art.html and so on. And also `/about`. which routes to index.html as well.
+
+As of 0.1.1 and onward, the route rewrites are configured in the YAML per domain, there are no default route rewrites anymore.
 
 ## Why use kiamagpie
 
@@ -72,7 +90,9 @@ If you need an efficient and secure server for general serving of web content su
 
 If you need a server that enables hybrid post-quantum-cryptography (PQC) for TLS key exchange [see more regarding the spec FIPS 203](https://csrc.nist.gov/pubs/fips/203/final), then kiamagpie is for that.
 
-The Go crypto library is the source of the cryptographic support for PQC, no cryptography is added in this project.
+_Note, the Go crypto library is the source of the cryptographic support for PQC, no cryptography is added in this project._
+
+If you need event correlation across logs and web interactions as correlated JSON events, kiamagpie is built for that.
 
 ## Installation
 
