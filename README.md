@@ -86,9 +86,7 @@ kiamagpie:
 
 The config routes different domains to different listeners which it creates, serving the web content at the web_content path configured.
 
-QUIC support is making good progress. Version 0.1.0 doesn't have complete QUIC support and should be disabled in the config (False) if using that version.
-
-Version 0.1.1 has usable QUIC support.
+QUIC support is available and adoption of the QUIC protocol is making good progress.
 
 Note that only ECDSA NIST curves, RSA, and ed25519 are the support server identity types. RSA support was added in 0.1.1, 0.1.0 does not have RSA support.
 
