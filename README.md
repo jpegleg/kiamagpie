@@ -16,6 +16,21 @@ kiamagpie:
   tls: True
   http: True
   cache_age_seconds: 60
+  domains_quic:
+  - example.com:
+    - "127.0.0.1:3443"
+    - cert: /opt/local/TEMPLATE/cert.pem
+    - key: /opt/local/TEMPLATE/key.pem
+    - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
+  - www.example.com:
+    - "127.0.0.1:3243"
+    - cert: /opt/local/TEMPLATE/cert.pem
+    - key: /opt/local/TEMPLATE/key.pem
+    - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
   domains_tls:
   - another.local.thing.localdomain:
     - "127.0.0.1:3244"
@@ -71,15 +86,15 @@ kiamagpie:
 
 The config routes different domains to different listeners which it creates, serving the web content at the web_content path configured.
 
-QUIC support is making good progress. Version 0.1.0 doesn't have complete QUIC support and should be disabled in that version.
+QUIC support is making good progress. Version 0.1.0 doesn't have complete QUIC support and should be disabled in the config (False) if using that version.
 
-Version 0.1.1 has usable QUIC support!
+Version 0.1.1 has usable QUIC support.
 
 Note that only ECDSA NIST curves, RSA, and ed25519 are the support server identity types. RSA support was added in 0.1.1, 0.1.0 does not have RSA support.
 
 Hybrid PQC with ML-KEM for key exchange is verified and central to the design.
 
-In the 0.1.0 version the routes rewrites were not configurable in the YAML and `/` routes to the file `index.html` in the web root of `web_content`. To code other routes, edit the `main.go` and recompile it.
+In the 0.1.0 version the route rewrites were not configurable in the YAML and `/` routes to the file `index.html` in the web root of `web_content`. To code other routes, edit the `main.go` and recompile it.
 There are some example routes in the default build for `/art`, `/shows`, `/music`, which each route to art.html and so on. And also `/about`. which routes to index.html as well.
 
 As of 0.1.1 and onward, the route rewrites are configured in the YAML per domain, there are no default route rewrites anymore.
@@ -104,7 +119,9 @@ Kiamagpie is available on [github](https://github.com/jpegleg/kiamagpie) and [do
 
 The container image is very small and hardened, with only a single statically linked Go binary added to a minimized container "scratch" image.
 
-It will need mount pounts for the web content, config, and the cert and key pairs. The `domains.yaml` specifies these paths.
+The v0.1.0 version has port 80 and 443 exposed in the docker image, while the v0.1.1 and newer have 80-9999 for both UDP and TCP exposed in the docker image.
+
+It will need mount points or insertions for the web content, config, and the cert and key pairs. The `domains.yaml` specifies these paths.
 
 Here is an example of pulling the image from docker hub and running via Podman or Docker:
 
@@ -115,6 +132,8 @@ podman run -d -it --network=host -v /opt/local/:/opt/local/ \
                                  -v /opt/kiamagpie/domains.yaml:/domains.yaml \
                                  carefuldata/kiamagpie
 ```
+
+The mount points for all of the files are configurable in the YAML, except for `domains.yaml` which must be in the working dorectory of kiamagpie, so in the container version `/`.
 
 Kiamagpie can listen on any TCP or UDP port. UDP is for QUIC protocol only.
 
@@ -128,6 +147,8 @@ It doesn't replace Kubernetes, but it does the things we need for the web at sma
 - serve web content
 - use best available network protocols
 - simple and reliable operations
+
+Kiamagpie is easier to use and generally more secure and cloud native than traditional web servers like NGINX or Apache HTTPD.
 
 Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and [kiaproxy](https://github.com/jpegleg/kiaproxy/).
 
