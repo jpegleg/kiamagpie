@@ -113,7 +113,7 @@ If you need event correlation across logs and web interactions as correlated JSO
 
 ## Installation
 
-Kiamagpie is available on [github](https://github.com/jpegleg/kiamagpie) and [docker hub](https://hub.docker.com/r/carefuldata/kiamagpi).
+Kiamagpie is available on [github](https://github.com/jpegleg/kiamagpie) and [docker hub](https://hub.docker.com/r/carefuldata/kiamagpie).
 
 The container image is very small and hardened, with only a single statically linked Go binary added to a minimized container "scratch" image.
 
@@ -135,7 +135,7 @@ The mount points for all of the files are configurable in the YAML, except for `
 
 Kiamagpie can listen on any TCP or UDP port. UDP is for QUIC protocol only.
 
-Kiagmagpie can be compiled from source or installed from precompiled release binaries via github.
+Kiamagpie can also be compiled from source or installed from any precompiled release binaries via github.
 
 Kiamagpie works well in Kubernetes, too, just specify the YAML config in the manifest as a configmap or secret, or mount it.
 
