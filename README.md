@@ -100,7 +100,7 @@ As of 0.1.1 and onward, the route rewrites are configured in the YAML per domain
 
 As of 0.1.2 and onward, security headers for TLS, and HSTS of "max-age=63072000; includeSubDomains; preload" is avilable bolean with the `strict_transport_security` config option.
 
-As of 0.1.2 and onward, web content can be loaded from HTTPS network sources instead of from the filesystem. This way the web content of a given domain can be from an S3 bucket or whatnot, and it is stored locally in RAM as much as possible with the cache.
+As of 0.1.2 and onward, web content can be loaded from HTTPS network sources instead of from the filesystem. This way the web content of a given domain can be from an S3 bucket or whatnot, and it is stored locally in RAM as much as possible with the cache. To use this feature start the path of web_content with "https", see the example config at the top of this document.
 
 As of 0.1.2 and onward, we can limit the RAM use of the files cache in the config option `ram_limit_percent` as a float. If we set 50, then we use up to 50% of available RAM for the file cache.
 
