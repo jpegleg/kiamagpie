@@ -12,6 +12,7 @@ kiamagpie:
   host_header_inspection: True
   strict_transport_security: True
   redirect_https: False
+  ram_limit_percent: 50
   quic: True
   tls: True
   http: True
@@ -28,7 +29,7 @@ kiamagpie:
     - "127.0.0.1:3243"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
-    - web_content: /srv/persist/TEMPLATE/
+    - web_content: https://example.com
       rewrites:
         "/": "/index.html"
   domains_tls:
@@ -96,6 +97,12 @@ In the 0.1.0 version the route rewrites were not configurable in the YAML and `/
 There are some example routes in the 0.1.0 default build for `/art`, `/shows`, `/music`, which each route to art.html and so on. And also `/about`. which routes to index.html as well.
 
 As of 0.1.1 and onward, the route rewrites are configured in the YAML per domain, there are no default route rewrites anymore.
+
+As of 0.1.2 and onward, security headers for TLS, and HSTS of "max-age=63072000; includeSubDomains; preload" is avilable bolean with the `strict_transport_security` config option.
+
+As of 0.1.2 and onward, web content can be loaded from HTTPS network sources instead of from the filesystem. This way the web content of a given domain can be from an S3 bucket or whatnot, and it is stored locally in RAM as much as possible with the cache.
+
+As of 0.1.2 and onward, we can limit the RAM use of the files cache in the config option `ram_limit_percent` as a float. If we set 50, then we use up to 50% of available RAM for the file cache.
 
 ## Why use kiamagpie
 
