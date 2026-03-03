@@ -38,6 +38,7 @@ kiamagpie:
     - web_content: /srv/persist/ANOTHER/
       rewrites:
         "/": "/index.html"
+        "/example"; "/api/foo"
   - local.thing.localdomain:
     - "127.0.0.1:3444"
     - cert: /opt/local/ANOTHER/cert.pem
