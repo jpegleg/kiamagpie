@@ -8,8 +8,6 @@ Kiamagpie is a TLS capable file and web server that uses a YAML configuration fi
 ---
 kiamagpie:
   name: "TEMPLATE_deploy"
-  sni_inspection: True
-  host_header_inspection: True
   strict_transport_security: True
   redirect_https: False
   ram_limit_percent: 50
@@ -29,7 +27,7 @@ kiamagpie:
     - "127.0.0.1:3243"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
-    - web_content: https://example.com
+    - web_content: https://example.com/example/bucket/
       rewrites:
         "/": "/index.html"
   domains_tls:
@@ -103,6 +101,8 @@ As of 0.1.2 and onward, security headers for all TLS are in place. Further HSTS 
 As of 0.1.2 and onward, web content can be loaded from HTTPS network sources instead of from the filesystem. This way the web content of a given domain can be from an S3 bucket or whatnot, and it is stored locally in RAM as much as possible with the cache. To use this feature start the path of web_content with "https", see the example config at the top of this document.
 
 As of 0.1.2 and onward, we can limit the RAM use of the files cache in the config option `ram_limit_percent` as a float. If we set 50, then we use up to 50% of available RAM for the file cache.
+
+As of 0.1.3 on onward, we have "hot reloading" of certificate and key files.
 
 ## Why use kiamagpie
 
