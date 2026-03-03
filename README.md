@@ -5,7 +5,7 @@
 Kiamagpie is a TLS capable file and web server with built in caching, remote and local content loading,
 QUIC protocol support, and hot reloading of certs and keys.
 
-There is a single YAML configuration file, `domains.yaml` for each instance of kiamagpie.
+There is a single YAML configuration file, `domains.yaml`, for each instance of kiamagpie.
 
 Kiamagpie can use global listeners or domain specific listeners.
 Global listener support was added in version 0.1.3.
