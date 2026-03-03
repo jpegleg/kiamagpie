@@ -10,7 +10,7 @@ There is a single YAML configuration file, `domains.yaml`, for each instance of 
 Kiamagpie can use global listeners or domain specific listeners.
 Global listener support was added in version 0.1.3.
 The global listeners are especially useful for when there is only one web root
-and many possible domains.
+and many/multiple possible domains.
 
 ```
 ---
@@ -51,7 +51,7 @@ kiamagpie:
 
 Alternatively to global listeners marked with "*" for the dommain, there can be domain specific listeners.
 This example config demonstrates using domain specific listeners and default web content if no domain is matched
-for traffic on any listener.
+for traffic on a given listener.
 
 ```
 ---
