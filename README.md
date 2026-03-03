@@ -2,13 +2,63 @@
 
 # kiamagpie
 
-Kiamagpie is a TLS capable file and web server that uses a YAML configuration file.
+Kiamagpie is a TLS capable file and web server with built in caching, remote and local content loading,
+QUIC protocol support, and hot reloading of certs and keys.
+
+There is a YAML configuration file, `domains.yaml`.
+
+Kiamagpie can use global listeners or domain specific listeners.
+Global listener support was added in version 0.1.3.
+The global listeners are especially useful for when there is only one web root
+and many possible domains.
 
 ```
 ---
 kiamagpie:
   name: "TEMPLATE_deploy"
   strict_transport_security: True
+  ram_limit_percent: 50
+  quic: True
+  tls: True
+  http: True
+  cache_age_seconds: 60
+  domains_quic:
+  - "*":
+    - "0.0.0.0:443"
+    - cert: /opt/local/TEMPLATE/cert.pem
+    - key: /opt/local/TEMPLATE/key.pem
+    - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
+        "/about": "/about.html"
+  domains_tls:
+  - "*":
+    - "0.0.0.0:443"
+    - cert: /opt/local/TEMPLATE/cert.pem
+    - key: /opt/local/TEMPLATE/key.pem
+    - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
+        "/about": "/about.html"
+  domains_http:
+  - "*":
+    - "0.0.0.0:80"
+    - web_content: /srv/persist/TEMPLATE/
+      rewrites:
+        "/": "/index.html"
+        "/about": "/about.html"
+```
+
+Alternatively to global listeners marked with "*" for the dommain, there can be domain specific listeners.
+This example config demonstrates using domain specific listeners and default web content if no domain is matched
+for traffic on any listener.
+
+```
+---
+kiamagpie:
+  name: "TEMPLATE_deploy"
+  strict_transport_security: True
+  default_web_content: /srv/persist/WHATEVER/
   ram_limit_percent: 50
   quic: True
   tls: True
@@ -83,7 +133,11 @@ kiamagpie:
 
 ```
 
-The config routes different domains to different listeners which it creates, serving the web content at the web_content path configured.
+That last example config routes different domains to different listeners which kiamagie creates, serving the web content at the web_content path configured.
+Note how `https://example.com/example/bucket` is used in that example in one place instead of a filesystem path. Remote content over HTTPS can be used
+instead of local files, so content can be loaded from S3 buckets or other websites and cached in kiamagpie.
+
+#### Changelog and version notes
 
 QUIC support is available and adoption of the QUIC protocol is making good progress.
 
@@ -102,11 +156,13 @@ As of 0.1.2 and onward, web content can be loaded from HTTPS network sources ins
 
 As of 0.1.2 and onward, we can limit the RAM use of the files cache in the config option `ram_limit_percent` as a float. If we set 50, then we use up to 50% of available RAM for the file cache.
 
-As of 0.1.3 on onward, we have "hot reloading" of certificate and key files.
+As of 0.1.3 and onward, we have "hot reloading" of certificate and key files.
+
+As of 0.1.3 and onward, we have global listeners `"*"` and `default_web_content` features. Note that those features are exclusive - either or neither but not both can be used in the same config, otherwise they would conflict.
 
 ## Why use kiamagpie
 
-If you need a compact and purpose built web server for handling multiple websites, kiamagpie is built for that.
+If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
 
 If you need an efficient and secure server for general serving of web content such as HTML, CSS, images, videos, audio, and javascript, kiamagpie is built for that.
 
@@ -162,8 +218,10 @@ Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and
 The three services combined are the kiastack, and together they can handle the domain routing, fail over, and transport security,
 as well as the optimization and ease of serving various websites, html, video, javascript, and beyond.
 
-Kiagateway and kiaproxy do not support UDP so they do not support QUIC. Varations of those services are likely to be made to support QUIC.
-Until then, either use another gateway/lb to support QUIC or expose kiamagpie externally for the QUIC listeners.
+Kiagateway and kiaproxy do not support UDP so they do not support QUIC. Either use another gateway/lb to support QUIC or expose kiamagpie externally for the QUIC listeners.
+Currently doing TLS passthrough for QUIC is not great, so having QUIC protocol terminate on the first point of ingress is much more reasonable.  Kiamagpie can be used as an external QUIC
+proxy/server in this way - set a global listener and load the web content from the webserver remotely or locally. While there are some limitations and impacts of such a design,
+it is a way to operate with QUIC.
 
 ## Project promises
 
