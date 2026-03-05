@@ -227,6 +227,6 @@ it is a way to operate with QUIC.
 
 ## Project promises
 
-This project will never use AI-slop. All code is reviewed, tested, and implemented by a human expert. This repository and the crates.io repository are carefully managed and protected.
+This project will never use AI-slop. All code is reviewed, tested, and implemented by a human expert. This repository is carefully managed and protected.
 
 This project will be maintained as best as is reasonable.
