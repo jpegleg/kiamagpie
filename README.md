@@ -196,10 +196,14 @@ podman pull docker.io/carefuldata/kiamagpie:latest
 podman run -d -it --network=host -v /opt/local/:/opt/local/ \
                                  -v /srv/persist:/srv/persist \
                                  -v /opt/kiamagpie/domains.yaml:/domains.yaml \
+                                 -v /etc/ssl:/etc/ssl \
                                  carefuldata/kiamagpie
 ```
 
 The mount points for all of the files are configurable in the YAML, except for `domains.yaml` which must be in the working directory of kiamagpie, so in the container version `/`.
+
+Because the container image has no CA certificates or trust stores, you will need to supply the trust store or trusted CA bundle files. This can be done by mounting them or
+building a new container that adds in the ones you want.
 
 Kiamagpie can listen on any TCP or UDP port. UDP is for QUIC protocol only.
 
