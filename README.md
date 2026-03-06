@@ -10,7 +10,7 @@ There is a single YAML configuration file, `domains.yaml`, for each instance of 
 Kiamagpie can use global listeners or domain specific listeners.
 Global listener support was added in version 0.1.3.
 The global listeners are especially useful for when there is only one web root
-and many/multiple possible domains.
+and many/multiple possible domains, or it is just a single regular website.
 
 ```
 ---
@@ -132,6 +132,7 @@ kiamagpie:
         "/": "/index.html"
 
 ```
+_Note how these listeners are on the loopback interface, so another service such as kiagateway and/or kiamproxy would be expected to route traffic to them._
 
 That last example config routes different domains to different listeners which kiamagie creates, serving the web content at the web_content path configured.
 Note how `https://example.com/example/bucket` is used in that example in one place instead of a filesystem path. Remote content over HTTPS can be used
@@ -161,6 +162,8 @@ As of 0.1.3 and onward, we have "hot reloading" of certificate and key files.
 As of 0.1.3 and onward, we have global listeners `"*"` and `default_web_content` features. Note that those features are exclusive - either or neither but not both can be used in the same config, otherwise they would conflict.
 
 Version 0.1.4 is an important fix for 0.1.3 release. The fix is for an HTTP 502 being sent in some valid traffic conditions.
+
+There is a fork of kiamagpie that starts at v0.1.500 that will get more feature development, including some specific to OpenBSD integration of (Pledge so far), for those using [kiamagpie on OpenBSD](https://github.com/jpegleg/paludification_toad/).
 
 ## Why use kiamagpie
 
