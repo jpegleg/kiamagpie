@@ -31,7 +31,7 @@ import (
         "gopkg.in/yaml.v3"
 )
 
-const magpieVersion = "0.1.4"
+const magpieVersion = "0.1.5"
 const defaultHostKey = "__default__"
 
 const (
@@ -52,6 +52,7 @@ type MagpieConfig struct {
                 HSTS              bool        `yaml:"strict_transport_security"`
                 CacheAgeSecs      int         `yaml:"cache_age_seconds"`
                 RAMLimitPercent   float64     `yaml:"ram_limit_percent"`
+                MinTLSVersion     uint16      `yaml:"min_tls_version"`
                 DomainsTLS        interface{} `yaml:"domains_tls"`
                 DomainsQUIC       interface{} `yaml:"domains_quic"`
                 DomainsHTTP       interface{} `yaml:"domains_http"`
@@ -782,7 +783,7 @@ func tlsConfigForHost(vh VirtualHost) (*tls.Config, error) {
         }
 
         return &tls.Config{
-                MinVersion: tls.VersionTLS13,
+                MinVersion: magpieConfig.Magpie.MinTLSVersion,
                 CurvePreferences: []tls.CurveID{
                         tls.X25519MLKEM768,
                         tls.X25519,
