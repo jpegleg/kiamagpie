@@ -482,7 +482,7 @@ func main() {
         }
         rewriteMu.Lock()
 
-        for _, vh := range append(append(hosts., hosts.HTTP...), hosts.QUIC...) {
+        for _, vh := range append(append(hosts.TLS, hosts.HTTP...), hosts.QUIC...) {
                 if len(vh.Rewrites) > 0 {
                         rewritesByHost[vh.Domain] = vh.Rewrites
                 }
@@ -503,8 +503,8 @@ func main() {
                 }
         }
 
-        if magpieConfig.Magpie.Enabled {
-                for _, h := range hosts. {
+        if magpieConfig.Magpie.TLSEnabled {
+                for _, h := range hosts.TLS {
                         wg.Add(1)
                         go func(v VirtualHost) {
                                 defer wg.Done()
