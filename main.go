@@ -46,17 +46,18 @@ const (
 
 type MagpieConfig struct {
         Magpie struct {
-                QUICEnabled       bool        `yaml:"quic"`
-                TLSEnabled        bool        `yaml:"tls"`
-                HTTPEnabled       bool        `yaml:"http"`
-                HSTS              bool        `yaml:"strict_transport_security"`
-                CacheAgeSecs      int         `yaml:"cache_age_seconds"`
-                RAMLimitPercent   float64     `yaml:"ram_limit_percent"`
-                MinTLSVersion     uint16      `yaml:"min_tls_version"`
-                DomainsTLS        interface{} `yaml:"domains_tls"`
-                DomainsQUIC       interface{} `yaml:"domains_quic"`
-                DomainsHTTP       interface{} `yaml:"domains_http"`
-                DefaultWebContent string      `yaml:"default_web_content"`
+                QUICEnabled         bool        `yaml:"quic"`
+                TLSEnabled          bool        `yaml:"tls"`
+                HTTPEnabled         bool        `yaml:"http"`
+                HSTS                bool        `yaml:"strict_transport_security"`
+                CacheAgeSecs        int         `yaml:"cache_age_seconds"`
+                RAMLimitPercent     float64     `yaml:"ram_limit_percent"`
+                MinTLSVersion       uint16      `yaml:"min_tls_version"`
+                ClientMinTLSVersion uint16      `yaml:"client_min_tls_version"`
+                DomainsTLS          interface{} `yaml:"domains_tls"`
+                DomainsQUIC         interface{} `yaml:"domains_quic"`
+                DomainsHTTP         interface{} `yaml:"domains_http"`
+                DefaultWebContent   string      `yaml:"default_web_content"`
         } `yaml:"kiamagpie"`
 }
 
@@ -481,7 +482,7 @@ func main() {
         }
         rewriteMu.Lock()
 
-        for _, vh := range append(append(hosts.TLS, hosts.HTTP...), hosts.QUIC...) {
+        for _, vh := range append(append(hosts., hosts.HTTP...), hosts.QUIC...) {
                 if len(vh.Rewrites) > 0 {
                         rewritesByHost[vh.Domain] = vh.Rewrites
                 }
@@ -502,8 +503,8 @@ func main() {
                 }
         }
 
-        if magpieConfig.Magpie.TLSEnabled {
-                for _, h := range hosts.TLS {
+        if magpieConfig.Magpie.Enabled {
+                for _, h := range hosts. {
                         wg.Add(1)
                         go func(v VirtualHost) {
                                 defer wg.Done()
@@ -1359,7 +1360,7 @@ func fetchRemote(origin *url.URL, reqPath string) ([]byte, string, int, error) {
 
 func strictHTTPClient() *http.Client {
         tlsConf := &tls.Config{
-                MinVersion: tls.VersionTLS13,
+                MinVersion: magpieConfig.Magpie.ClientMinTLSVersion,
                 CurvePreferences: []tls.CurveID{
                         tls.X25519MLKEM768,
                         tls.X25519,
