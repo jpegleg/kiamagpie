@@ -22,7 +22,7 @@ kiamagpie:
   tls: True
   http: True
   cache_age_seconds: 60
-  min_tls_version: 0x304
+  min_tls_version: 0x0304
   domains_quic:
   - "*":
     - "0.0.0.0:443"
@@ -65,7 +65,7 @@ kiamagpie:
   tls: True
   http: True
   cache_age_seconds: 60
-  min_tls_version: 0x303
+  min_tls_version: 0x0303
   domains_quic:
   - example.com:
     - "127.0.0.1:3443"
@@ -167,7 +167,7 @@ Version 0.1.4 is an important fix for 0.1.3 release. The fix is for an HTTP 502 
 
 There is a fork of kiamagpie that starts at v0.1.500 that will get more feature development, including some specific to OpenBSD integration of (Pledge so far), for those using [kiamagpie on OpenBSD](https://github.com/jpegleg/paludification_toad/).
 
-Version 0.1.5 includes optional "min_tls_version" configuration value. 0x303 (default) is a reasonable choice with cleaned up TLSv1.2 and TLSv1.3, 0x304 is TLSv1.3 only.
+Version 0.1.5 includes optional "min_tls_version" configuration value. 0x0303 (default) is a reasonable choice with cleaned up TLSv1.2 and TLSv1.3, 0x0304 is TLSv1.3 only.
 
 ## Why use kiamagpie
 
