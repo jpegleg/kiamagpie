@@ -18,6 +18,7 @@ kiamagpie:
   name: "TEMPLATE_deploy"
   strict_transport_security: True
   ram_limit_percent: 50
+  redirect_to_https: True
   quic: True
   tls: True
   http: True
@@ -50,7 +51,7 @@ kiamagpie:
         "/about": "/about.html"
 ```
 
-Alternatively to global listeners marked with "*" for the dommain, there can be domain specific listeners.
+Alternatively to global listeners marked with "*" for the domain, there can be domain specific listeners.
 This example config demonstrates using domain specific listeners and default web content if no domain is matched
 for traffic on a given listener.
 
@@ -61,6 +62,7 @@ kiamagpie:
   strict_transport_security: True
   default_web_content: /srv/persist/WHATEVER/
   ram_limit_percent: 50
+  redirect_to_https: True
   quic: True
   tls: True
   http: True
@@ -168,6 +170,8 @@ Version 0.1.4 is an important fix for 0.1.3 release. The fix is for an HTTP 502 
 There is a fork of kiamagpie that starts at v0.1.500 that will get more feature development, including some specific to OpenBSD integration of (Pledge so far), for those using [kiamagpie on OpenBSD](https://github.com/jpegleg/paludification_toad/).
 
 Version 0.1.5 includes optional "min_tls_version" configuration value and "client_min_tls_version". The client one is for when kiamagpie acts as a TLS client to fetch remote content, while "min_tls_version" is for kiamagpie TLS server. Using the value 0x0303 (default) is a reasonable choice with cleaned up TLSv1.2 and TLSv1.3, 0x0304 is TLSv1.3 only. Earlier versions of kiamagpie were TLSv1.3 only.
+
+Version 0.1.6 adds the config boolean feature "redirect_to_https". If set to True, HTTP listeners will get redirected to HTTPS (443) via HTTP 301.
 
 ## Why use kiamagpie
 
