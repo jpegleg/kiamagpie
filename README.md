@@ -173,6 +173,8 @@ Version 0.1.5 includes optional "min_tls_version" configuration value and "clien
 
 Version 0.1.6 adds the config boolean feature "redirect_to_https". If set to True, HTTP listeners will get redirected to HTTPS (443) via HTTP 301.
 
+Version 0.1.7 adds hot reloading of .well-known (cache bypass) so that kiamagpie can do ACME HTTP challenges.
+
 ## Why use kiamagpie
 
 If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
