@@ -1205,6 +1205,12 @@ func handleForVHost(vh VirtualHost, w http.ResponseWriter, r *http.Request) {
 
         p := applyRewrites(contentHost, r.URL.Path)
 
+        if data, ctype, ok := readHotLocalFile(contentHost, p); ok {
+                w.Header().Set("Content-Type", ctype)
+                _, _ = w.Write(data)
+                return
+        }
+
         if data, ok := getLocal(contentHost, p); ok {
                 ctype := mime.TypeByExtension(filepath.Ext(p))
                 if ctype == "" {
