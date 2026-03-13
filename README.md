@@ -175,6 +175,8 @@ Version 0.1.6 adds the config boolean feature "redirect_to_https". If set to Tru
 
 Version 0.1.7 adds hot reloading of .well-known (cache bypass) so that kiamagpie can do ACME HTTP challenges.
 
+Version 0.1.8 fixes an issue with hot reloading of certificates and keys when multiple TLS listeners are configured.
+
 ## Why use kiamagpie
 
 If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
