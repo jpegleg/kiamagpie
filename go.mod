@@ -1,12 +1,12 @@
 module kiamagpie
 
-go 1.25.0
+go 1.26.2
 
 require (
-        github.com/fsnotify/fsnotify v1.9.0
+        github.com/fsnotify/fsnotify v1.10.0
         github.com/google/uuid v1.6.0
         github.com/quic-go/quic-go v0.59.0
-        golang.org/x/sys v0.35.0
+        golang.org/x/sys v0.43.0
         gopkg.in/yaml.v3 v3.0.1
 )
 
