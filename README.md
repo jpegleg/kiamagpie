@@ -16,7 +16,6 @@ and many/multiple possible domains, or it is just a single regular website.
 ---
 kiamagpie:
   name: "TEMPLATE_deploy"
-  strict_transport_security: True
   ram_limit_percent: 50
   redirect_to_https: True
   quic: True
@@ -30,16 +29,27 @@ kiamagpie:
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Cache-Control: "no-store"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+    - rewrites:
         "/": "/index.html"
-        "/about": "/about.html"
   domains_tls:
   - "*":
     - "0.0.0.0:443"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Cache-Control: "no-store"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+    - rewrites:
         "/": "/index.html"
         "/about": "/about.html"
   domains_http:
@@ -59,7 +69,6 @@ for traffic on a given listener.
 ---
 kiamagpie:
   name: "TEMPLATE_deploy"
-  strict_transport_security: True
   default_web_content: /srv/persist/WHATEVER/
   ram_limit_percent: 50
   redirect_to_https: True
@@ -74,14 +83,24 @@ kiamagpie:
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+    - rewrites:
         "/": "/index.html"
   - www.example.com:
     - "127.0.0.1:3243"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: https://example.com/example/bucket/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+     - rewrites:
         "/": "/index.html"
   domains_tls:
   - another.local.thing.localdomain:
@@ -89,7 +108,12 @@ kiamagpie:
     - cert: /opt/local/ANOTHER/cert.pem
     - key: /opt/local/ANOTHER/key.pem
     - web_content: /srv/persist/ANOTHER/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+     - rewrites:
         "/": "/index.html"
         "/example"; "/api/foo"
   - local.thing.localdomain:
@@ -104,14 +128,24 @@ kiamagpie:
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+     - rewrites:
         "/": "/index.html"
   - www.example.com:
     - "127.0.0.1:3243"
     - cert: /opt/local/TEMPLATE/cert.pem
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
-      rewrites:
+    - headers:
+        Content-Security-Policy: "default-src 'self'"
+        Referrer-Policy: "strict-origin-when-cross-origin"
+        Permissions-Policy: "geolocation=(), camera=()"
+        Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+     - rewrites:
         "/": "/index.html"
   domains_http:
   - www.example.com:
@@ -176,6 +210,8 @@ Version 0.1.6 adds the config boolean feature "redirect_to_https". If set to Tru
 Version 0.1.7 adds hot reloading of .well-known (cache bypass) so that kiamagpie can do ACME HTTP challenges.
 
 Version 0.1.8 fixes an issue with hot reloading of certificates and keys when multiple TLS listeners are configured.
+
+Version 0.2.0 adds custom headers per domain, deprecating the previous strict-transport-security boolean config option, and changes the Go version to 1.26.2
 
 ## Why use kiamagpie
 
