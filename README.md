@@ -30,9 +30,11 @@ kiamagpie:
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
     - headers:
-        Content-Security-Policy: "default-src 'self'"
         Referrer-Policy: "strict-origin-when-cross-origin"
-        Permissions-Policy: "geolocation=(), camera=()"
+        Cross-Origin-Opener-Policy: "same-origin"
+        Cross-Origin-Embedder-Policy: "require-corp"
+        Content-Security-Policy: "style-src 'self' 'unsafe-inline' https:;img-src 'self' data: https:;font-src 'self' https:;connect-src 'self' https:;object-src 'none';base-uri 'none';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;"
+        Permissions-Policy: "geolocation=(),camera=(),microphone=(),payment=(),usb=(),fullscreen=(self)"
         Cache-Control: "no-store"
         Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
     - rewrites:
@@ -44,9 +46,11 @@ kiamagpie:
     - key: /opt/local/TEMPLATE/key.pem
     - web_content: /srv/persist/TEMPLATE/
     - headers:
-        Content-Security-Policy: "default-src 'self'"
         Referrer-Policy: "strict-origin-when-cross-origin"
-        Permissions-Policy: "geolocation=(), camera=()"
+        Cross-Origin-Opener-Policy: "same-origin"
+        Cross-Origin-Embedder-Policy: "require-corp"
+        Content-Security-Policy: "style-src 'self' 'unsafe-inline' https:;img-src 'self' data: https:;font-src 'self' https:;connect-src 'self' https:;object-src 'none';base-uri 'none';frame-ancestors 'none';form-action 'self';upgrade-insecure-requests;"
+        Permissions-Policy: "geolocation=(),camera=(),microphone=(),payment=(),usb=(),fullscreen=(self)"
         Cache-Control: "no-store"
         Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
     - rewrites:
