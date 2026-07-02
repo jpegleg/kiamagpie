@@ -217,6 +217,8 @@ Version 0.1.8 fixes an issue with hot reloading of certificates and keys when mu
 
 Version 0.2.0 adds custom headers per domain, deprecating the previous strict-transport-security boolean config option, and changes the Go version to 1.26.2
 
+Version 0.2.1 updates Go to 1.26.4, pulling latest dependency updates too.
+
 ## Why use kiamagpie
 
 If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
