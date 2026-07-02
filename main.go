@@ -31,7 +31,7 @@ import (
         "gopkg.in/yaml.v3"
 )
 
-const magpieVersion = "0.2.0"
+const magpieVersion = "0.2.1"
 const defaultHostKey = "__default__"
 
 const (
