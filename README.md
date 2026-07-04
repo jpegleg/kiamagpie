@@ -278,13 +278,15 @@ Kiamagpie is easier to use and generally more secure and cloud native than tradi
 
 Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and [kiaproxy](https://github.com/jpegleg/kiaproxy/).
 
-The three services combined are the kiastack, and together they can handle the domain routing, fail over, and transport security,
+The services combined are the kiastack, and together they can handle the domain routing, fail over, and transport security,
 as well as the optimization and ease of serving various websites, html, video, javascript, and beyond.
 
 Kiagateway and kiaproxy do not support UDP so they do not support QUIC. Either use another gateway/lb to support QUIC or expose kiamagpie externally for the QUIC listeners.
 Currently doing TLS passthrough for QUIC is not great, so having QUIC protocol terminate on the first point of ingress is much more reasonable.  Kiamagpie can be used as an external QUIC
 proxy/server in this way - set a global listener and load the web content from the webserver remotely or locally. While there are some limitations and impacts of such a design,
 it is a way to operate with QUIC.
+
+Also see [kiabluejay](https://github.com/jpegleg/kiabluejay), which can be used instead or alongside of kiamagpie as another kiastack webserver. Kiabluejay has different features and greater focus on security and performance.
 
 ## Project promises
 
