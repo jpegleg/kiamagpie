@@ -174,7 +174,7 @@ kiamagpie:
         "/": "/index.html"
 
 ```
-_Note how these listeners are on the loopback interface, so another service such as kiagateway and/or kiamproxy would be expected to route traffic to them._
+_Note how these listeners are on the loopback interface, so another service such as kiagateway and/or kiaproxy would be expected to route traffic to them._
 
 That last example config routes different domains to different listeners which kiamagie creates, serving the web content at the web_content path configured.
 Note how `https://example.com/example/bucket` is used in that example in one place instead of a filesystem path. Remote content over HTTPS can be used
@@ -278,7 +278,7 @@ It doesn't replace Kubernetes, but it does the things we need for the web at sma
   
 Kiamagpie is easier to use and generally more secure and cloud native than traditional web servers like NGINX or Apache HTTPD.
 
-Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and [kiaproxy](https://github.com/jpegleg/kiaproxy/).
+Kiamagpie goes well with [kiagateway](https://github.com/jpegleg/kiagateway) and [kiaproxy](https://github.com/jpegleg/kiaproxy/), but can do the job by itself too.
 
 The services combined are the kiastack, and together they can handle the domain routing, fail over, and transport security,
 as well as the optimization and ease of serving various websites, html, video, javascript, and beyond.
