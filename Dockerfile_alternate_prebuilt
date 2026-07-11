@@ -1,0 +1,5 @@
+FROM scratch
+COPY kiamagpie /kiamagpie
+EXPOSE 80-9999
+EXPOSE 80-9999/udp
+ENTRYPOINT ["/kiamagpie"]
