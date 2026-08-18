@@ -221,6 +221,8 @@ Version 0.2.1 updates Go to 1.26.4, pulling latest dependency updates too.
 
 Version 0.2.2 updates Go to 1.26.5.
 
+Version 0.2.3 updates Go to 1.26.6.
+
 ## Why use kiamagpie
 
 If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
