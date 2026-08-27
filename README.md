@@ -223,6 +223,9 @@ Version 0.2.2 updates Go to 1.26.5.
 
 Version 0.2.3 updates Go to 1.26.6.
 
+Version 0.2.4 updates Go to 1.27.0.
+
+
 ## Why use kiamagpie
 
 If you need a compact and purpose built web server for handling singular or multiple websites, kiamagpie is built for that.
@@ -290,7 +293,8 @@ Currently doing TLS passthrough for QUIC is not great, so having QUIC protocol t
 proxy/server in this way - set a global listener and load the web content from the webserver remotely or locally. While there are some limitations and impacts of such a design,
 it is a way to operate with QUIC.
 
-Also see [kiabluejay](https://github.com/jpegleg/kiabluejay), which can be used instead or alongside of kiamagpie as another kiastack webserver. Kiabluejay has different features and greater focus on security and performance.
+Also see [kiabluejay](https://github.com/jpegleg/kiabluejay), which can be used instead or alongside of kiamagpie as another kiastack webserver. Kiabluejay has different features and greater focus on security and performance. Even though kiabluejay has better TCP connect and TLS, kiamagpie can actually still serve content faster because of the cache design used by kiamagpie. Kiabluejay hot reloads content from the disk. Kiamagpie primarily serves from cache, which goes straight from RAM and is ultimately faster end-to-end for most cases, even with slower TLS than kiabluejay.
+
 
 ## Project promises
 
