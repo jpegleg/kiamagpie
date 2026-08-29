@@ -3,7 +3,7 @@
 # kiamagpie
 
 Kiamagpie is a TLS capable file and web server with built in caching, remote and local content loading,
-QUIC protocol support, and hot reloading of certs and keys.
+QUIC protocol support, and hot reloading of certs and keys. Kiamagpie leverages RAM server cache for serving loaded content quickly.
 
 There is a single YAML configuration file, `domains.yaml`, for each instance of kiamagpie.
 
@@ -254,10 +254,10 @@ Here is an example of pulling the image from docker hub and running via Podman o
 
 ```
 podman pull docker.io/carefuldata/kiamagpie:latest
-podman run -d -it --network=host -v /opt/local/:/opt/local/ \
-                                 -v /srv/persist:/srv/persist \
-                                 -v /opt/kiamagpie/domains.yaml:/domains.yaml \
-                                 -v /etc/ssl:/etc/ssl \
+podman run -d -it --network=host -v /opt/local/:/opt/local/:ro \
+                                 -v /srv/persist:/srv/persist:ro \
+                                 -v /opt/kiamagpie/domains.yaml:/domains.yaml:ro \
+                                 -v /etc/ssl:/etc/ssl:ro \
                                  carefuldata/kiamagpie
 ```
 
