@@ -1,5 +1,6 @@
 FROM scratch
 COPY kiamagpie /kiamagpie
+COPY LICENSE /LICENSE
 EXPOSE 80-9999
 EXPOSE 80-9999/udp
 ENTRYPOINT ["/kiamagpie"]
