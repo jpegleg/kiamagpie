@@ -10,6 +10,7 @@ ENV GOARCH=amd64
 RUN go build -ldflags="-s -w" -o /app/kiamagpie .
 FROM scratch
 COPY --from=builder /app/kiamagpie /kiamagpie
+COPY LICENSE /LICENSE
 EXPOSE 80-9999
 EXPOSE 80-9999/udp
 ENTRYPOINT ["/kiamagpie"]
