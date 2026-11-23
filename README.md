@@ -227,6 +227,8 @@ Version 0.2.4 updates Go to 1.27.0.
 
 Version 0.2.5 updates Go to 1.27.2.
 
+Version 0.2.6 updates Go to 1.27.4.
+
 
 ## Why use kiamagpie
 
